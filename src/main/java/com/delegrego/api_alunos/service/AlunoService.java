@@ -49,12 +49,25 @@ public class AlunoService {
 		id++;
 
 		Aluno alunoCadastrado = alunos.get(alunos.size() - 1 /* alunos.getLast() */);
-		
-		return new AlunoResponse(alunoCadastrado.getId(),
-				alunoCadastrado.getNome(),
-				alunoCadastrado.getEmail(),
-				alunoCadastrado.getDataNascimento(),
-				alunoCadastrado.getMedia());
+
+		return new AlunoResponse(alunoCadastrado.getId(), alunoCadastrado.getNome(), alunoCadastrado.getEmail(),
+				alunoCadastrado.getDataNascimento(), alunoCadastrado.getMedia());
+
+	}
+
+	public AlunoResponse atualizarAluno(int id, AlunoRequest request) {
+
+		for (Aluno a : alunos) {
+			if (a.getId() == id) {
+				a.setNome(request.getNome());
+				a.setEmail(request.getEmail());
+				a.setSenha(request.getSenha());
+				a.setDataNascimento(request.getDataNascimento());
+				a.setMedia(request.getMedia());
+				return new AlunoResponse(id, a.getNome(), a.getEmail(), a.getDataNascimento(), a.getMedia());
+			}
+		}
+		return null;
 
 	}
 
