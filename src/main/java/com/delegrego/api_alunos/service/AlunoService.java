@@ -71,4 +71,13 @@ public class AlunoService {
 
 	}
 
+	public void excluirAluno(int id) {
+		for (Aluno a : alunos) {
+			if (a.getId() == id) {
+				alunos.remove(a);
+				return;
+			}
+		}
+	}
+
 }
