@@ -39,7 +39,7 @@ public class AlunoService {
 				return new AlunoResponse(id, a.getNome(), a.getEmail(), a.getDataNascimento(), a.getMedia());
 			}
 		}
-		return null;
+		throw new RuntimeException("Aluno não encontrado");
 	}
 
 	public AlunoResponse cadastrarAluno(AlunoRequest request) {
