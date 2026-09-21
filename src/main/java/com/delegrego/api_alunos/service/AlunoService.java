@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.delegrego.api_alunos.dto.AlunoRequest;
 import com.delegrego.api_alunos.dto.AlunoResponse;
+import com.delegrego.api_alunos.exception.AlunoNaoEncontradoException;
+import com.delegrego.api_alunos.exception.EmailCadastradoException;
 import com.delegrego.api_alunos.model.Aluno;
 
 @Service
@@ -39,14 +41,14 @@ public class AlunoService {
 				return new AlunoResponse(id, a.getNome(), a.getEmail(), a.getDataNascimento(), a.getMedia());
 			}
 		}
-		throw new RuntimeException("Aluno não encontrado");
+		throw new AlunoNaoEncontradoException("Aluno não encontrado");
 	}
 
 	public AlunoResponse cadastrarAluno(AlunoRequest request) {
 
 		for (Aluno a : alunos) {
 			if (request.getEmail().equalsIgnoreCase(a.getEmail())) {
-				throw new RuntimeException("Email já cadastrado");
+				throw new EmailCadastradoException("Email já cadastrado");
 			}
 		}
 
@@ -66,7 +68,7 @@ public class AlunoService {
 
 		for (Aluno a : alunos) {
 			if (request.getEmail().equalsIgnoreCase(a.getEmail()) && id != a.getId()) {
-				throw new RuntimeException("Email já cadastrado");
+				throw new EmailCadastradoException("Email já cadastrado");
 			}
 		}
 
@@ -81,7 +83,7 @@ public class AlunoService {
 			}
 		}
 
-		throw new RuntimeException("Aluno não encontrado");
+		throw new AlunoNaoEncontradoException("Aluno não encontrado");
 
 	}
 
