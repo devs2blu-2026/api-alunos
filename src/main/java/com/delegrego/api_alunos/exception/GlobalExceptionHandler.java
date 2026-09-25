@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+class GlobalExceptionHandler {
 
 	@ExceptionHandler(AlunoNaoEncontradoException.class)
-	public ResponseEntity<ErroResponse> handleAlunoNaoEncontradoException(AlunoNaoEncontradoException ex) {
+	ResponseEntity<ErroResponse> handleAlunoNaoEncontradoException(AlunoNaoEncontradoException ex) {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroResponse(404, ex.getMessage(), Instant.now()));
 	}
 
 	@ExceptionHandler(EmailCadastradoException.class)
-	public ResponseEntity<ErroResponse> handleEmailCadastradoException(EmailCadastradoException ex) {
+	ResponseEntity<ErroResponse> handleEmailCadastradoException(EmailCadastradoException ex) {
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErroResponse(409, ex.getMessage(), Instant.now()));
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ErroAtributoResponse> handleValidacaoRequest(MethodArgumentNotValidException ex) {
+	ResponseEntity<ErroAtributoResponse> handleValidacaoRequest(MethodArgumentNotValidException ex) {
 
 		List<ErroAtributo> errosAtributo = ex.getBindingResult().getFieldErrors().stream()
 				.map(erro -> new ErroAtributo(erro.getField(), erro.getDefaultMessage())).toList();
